@@ -7,6 +7,9 @@ return {
         require("mason").setup()
       end,
     },
+    {
+      "folke/neodev.nvim",
+    },
     { "neovim/nvim-lspconfig" },
     { "mrcjkb/rustaceanvim", ft = { "rust" } },
   },
