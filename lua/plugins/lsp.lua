@@ -11,14 +11,15 @@ return {
       "folke/neodev.nvim",
     },
     { "neovim/nvim-lspconfig" },
-    { "mrcjkb/rustaceanvim", ft = { "rust" } },
+    { "mrcjkb/rustaceanvim",  ft = { "rust" } },
   },
   ensure_installed = {
-    "bashls",
+    "rust-analyzer",
     "gopls",
     "lua_ls",
     "pylsp",
     "tsserver",
+    "json-lsp"
   },
   automatic_installation = true,
   config = function()
@@ -29,8 +30,10 @@ return {
     vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
     vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
     vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-    vim.keymap.set("n", "]c", "<cmd>lua vim.diagnostic.goto_next()<CR>")
-    vim.keymap.set("n", "[c", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+    vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+    vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+    vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+
     local lspconfig = require("lspconfig")
     vim.g.rustaceanvim = {
       server = {
@@ -43,10 +46,6 @@ return {
     })
 
     lspconfig["gopls"].setup({
-      capabilities = capabilities,
-    })
-
-    lspconfig["jsonls"].setup({
       capabilities = capabilities,
     })
 
