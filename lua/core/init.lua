@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
-local opt = vim.opt -- for conciseness
+
+local opt = vim.opt
 
 opt.relativenumber = true
 opt.number = true
@@ -26,3 +27,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
   end,
 })
+
+vim.lsp.inlay_hint.enable(true)
+vim.keymap.set("n", "<leader>th", '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>')
+
+vim.keymap.set("n", "<leader>e", '<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<CR>')

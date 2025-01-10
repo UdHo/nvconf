@@ -5,6 +5,28 @@ return {
     local conform = require("conform")
 
     conform.setup({
+      formatters = {
+        prettier = {
+          exe = "prettier",
+          args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
+          stdin = true,
+        },
+        stylua = {
+          exe = "stylua",
+          args = { "-" },
+          stdin = true,
+        },
+        isort = {
+          exe = "isort",
+          args = { "-" },
+          stdin = true,
+        },
+        black = {
+          exe = "black",
+          args = { "-" },
+          stdin = true,
+        },
+      },
       formatters_by_ft = {
         javascript = { "prettier" },
         typescript = { "prettier" },
