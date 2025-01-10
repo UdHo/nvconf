@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 
+
 local opt = vim.opt
 
 opt.relativenumber = true

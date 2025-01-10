@@ -18,7 +18,7 @@ return {
     "gopls",
     "lua_ls",
     "pylsp",
-    "tsserver",
+    "ts_ls",
     "json-lsp"
   },
   automatic_installation = true,
@@ -39,8 +39,15 @@ return {
       server = {
         capabilities = capabilities,
       },
+      default_settings = {
+        ['rust-analyzer'] = {
+          imports = {
+            granularity = { group = "module", },
+            prefix = "self",
+          }
+        },
+      },
     }
-
     lspconfig["html"].setup({
       capabilities = capabilities,
     })
@@ -75,9 +82,14 @@ return {
         },
       },
     })
-
-    lspconfig["tsserver"].setup({
+    lspconfig["ts_ls"].setup({
       capabilities = capabilities,
+    })
+    lspconfig["jsonls"].setup({
+      capabilities = capabilities,
+    })
+    lspconfig["clangd"].setup({
+      capabilities = capabilities
     })
   end,
 }
