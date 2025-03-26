@@ -11,7 +11,7 @@ return {
       "folke/neodev.nvim",
     },
     { "neovim/nvim-lspconfig" },
-    { "mrcjkb/rustaceanvim",  ft = { "rust" } },
+    --    { "mrcjkb/rustaceanvim",  ft = { "rust" }, version = '^5', lazy = false },
   },
   ensure_installed = {
     "rust-analyzer",
@@ -35,19 +35,25 @@ return {
     vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 
     local lspconfig = require("lspconfig")
-    vim.g.rustaceanvim = {
-      server = {
-        capabilities = capabilities,
-      },
-      default_settings = {
-        ['rust-analyzer'] = {
-          imports = {
-            granularity = { group = "module", },
-            prefix = "self",
-          }
-        },
-      },
-    }
+    --  vim.g.rustaceanvim = {
+    --    server = {
+    --      capabilities = capabilities,
+    --    },
+    --    default_settings = {
+    --      ['rust-analyzer'] = {
+    --        imports = {
+    --          granularity = { group = "module", },
+    --          prefix = "self",
+    --        }
+    --      },
+    --    },
+    --  }
+
+    lspconfig["rust_analyzer"].setup({
+      capabilities = capabilities,
+      settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } },
+    })
+
     lspconfig["html"].setup({
       capabilities = capabilities,
     })

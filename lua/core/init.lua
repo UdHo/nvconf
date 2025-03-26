@@ -32,3 +32,6 @@ vim.lsp.inlay_hint.enable(true)
 vim.keymap.set("n", "<leader>th", '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>')
 
 vim.keymap.set("n", "<leader>e", '<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<CR>')
+
+vim.keymap.set('i', '<C-p>', '<Plug>(copilot-accept-line)')
+vim.keymap.set('i', '<C-k>', '<Plug>(copilot-accept-word)')
