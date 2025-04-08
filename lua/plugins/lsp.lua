@@ -11,7 +11,11 @@ return {
       "folke/neodev.nvim",
     },
     { "neovim/nvim-lspconfig" },
-    --    { "mrcjkb/rustaceanvim",  ft = { "rust" }, version = '^5', lazy = false },
+    -- {
+    --   'mrcjkb/rustaceanvim',
+    --   version = '^6', -- Recommended
+    --   lazy = false,   -- This plugin is already lazy
+    -- }
   },
   ensure_installed = {
     "rust-analyzer",
@@ -23,32 +27,33 @@ return {
   },
   automatic_installation = true,
   config = function()
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
+
 
     vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
     vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
     vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-    vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
     vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
     vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
     vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
     vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 
     local lspconfig = require("lspconfig")
-    --  vim.g.rustaceanvim = {
-    --    server = {
-    --      capabilities = capabilities,
-    --    },
-    --    default_settings = {
-    --      ['rust-analyzer'] = {
-    --        imports = {
-    --          granularity = { group = "module", },
-    --          prefix = "self",
-    --        }
-    --      },
-    --    },
-    --  }
-
+    -- vim.g.rustaceanvim = {
+    --   server = {
+    --     capabilities = capabilities,
+    --   },
+    --   default_settings = {
+    --     ['rust-analyzer'] = {
+    --       imports = {
+    --         granularity = { group = "module", },
+    --         prefix = "self",
+    --       }
+    --     },
+    --   },
+    -- }
+    --
     lspconfig["rust_analyzer"].setup({
       capabilities = capabilities,
       settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } },
