@@ -17,19 +17,21 @@ return {
     --   lazy = false,   -- This plugin is already lazy
     -- }
   },
-  ensure_installed = {
-    "rust-analyzer",
-    "gopls",
-    "lua_ls",
-    "pylsp",
-    "ts_ls",
-    "json-lsp"
-  },
-  automatic_installation = true,
   config = function()
+    require("mason-lspconfig").setup({
+      ensure_installed = {
+        "rust_analyzer",
+        "gopls",
+        "lua_ls",
+        "pylsp",
+        "ts_ls",
+        "jsonls"
+      },
+      automatic_installation = true,
+    })
+
     -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local capabilities = require("blink.cmp").get_lsp_capabilities()
-
 
     vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
     vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
@@ -56,7 +58,7 @@ return {
     --
     lspconfig["rust_analyzer"].setup({
       capabilities = capabilities,
-      settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } },
+      settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
     })
 
     lspconfig["html"].setup({
@@ -102,5 +104,9 @@ return {
     lspconfig["clangd"].setup({
       capabilities = capabilities
     })
+    lspconfig["buf_ls"].setup({
+      capabilities = capabilities
+    })
+
   end,
 }
