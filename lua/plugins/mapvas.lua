@@ -1,0 +1,1 @@
+require("mapvas").setup()

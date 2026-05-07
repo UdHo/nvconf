@@ -1,3 +1,1 @@
-return {
-  "github/copilot.vim",
-}
+-- copilot.vim loads automatically; keymaps are set in core/init.lua
